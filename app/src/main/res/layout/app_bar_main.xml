@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:ignore="HardcodedText"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.SmartToDoList42.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:visibility="gone"
+            app:popupTheme="@style/Theme.SmartToDoList42.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <include
+        android:id="@+id/includeContentMain"
+        layout="@layout/content_main" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="89dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="60dp"
+        android:backgroundTint="@color/gradientOrange"
+        app:maxImageSize="32dp"
+        app:layout_anchor="@+id/includeContentMain"
+        app:layout_anchorGravity="end|bottom"
+        android:focusable="true"
+        app:srcCompat="@drawable/ic_baseline_add_24"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:contentDescription="@string/app_name" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addFloatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:backgroundTint="@color/gradientOrange"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:layout_anchor="@+id/fab"
+        app:layout_anchorGravity="top|center"
+        app:maxImageSize="32dp"
+        app:srcCompat="@drawable/ic_pen" />
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:elevation="10dp"
+        app:menu="@menu/bottom_nav_menu"
+
+        app:itemIconTint="@color/gradientOrange"
+        app:itemTextColor="@color/gradientOrange"
+
+
+        />
+
+    <TextView
+        android:id="@+id/addTextView"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:text="Add"
+        android:textSize="22dp"
+        android:textStyle="bold|italic"
+        android:visibility="invisible"
+        android:textColor="@color/white"
+        app:layout_anchor="@+id/addFloatingButton"
+        app:layout_anchorGravity="start|center" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sheetCons"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.436"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contentEditText"
+        app:layout_constraintVertical_bias="0.018" />
+
+    <EditText
+        android:id="@+id/contentEditText"
+        android:layout_width="376dp"
+        android:layout_height="174dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/custom_bottomsheet_text"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Text Here..."
+
+        android:inputType="textMultiLine"
+        android:maxHeight="50dp"
+        android:maxLength="50"
+        android:minHeight="100dp"
+        android:textAlignment="textStart"
+        android:textColor="#F2050505"
+        android:textColorHint="#E91E63"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
