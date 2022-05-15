@@ -156,10 +156,10 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
                             compositeDisposable.add(toDoDao.Update(0,contentList.get(position).contentId)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe()
-                            );
+                                    .subscribe());
 
-                        }catch (Exception e     ){
+
+                        }catch (Exception e){
                             e.printStackTrace();
                         }
                 }
@@ -212,11 +212,6 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
 
 
                 }
-
-
-
-
-
 
                 return true;
             }

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import com.cansalman.smarttodolist42.Login.LoginScreen;
@@ -36,7 +39,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity  {
     private AppBarConfiguration mAppBarConfiguration;
@@ -230,10 +236,16 @@ public class MainActivity extends AppCompatActivity  {
         sharedPreferences = this.getSharedPreferences("userId",Context.MODE_PRIVATE);
         int userId= sharedPreferences.getInt("userId",0);
 
+        /*
         userWithContentList = new ArrayList<>();
         userWithContentList=toDoDao.getAll(userId);
         handlerResponse(userWithContentList);
+*/
 
+        compositeDisposable.add(toDoDao.getDetails(userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handlerResponse));
     }
 
 
@@ -241,11 +253,16 @@ public class MainActivity extends AppCompatActivity  {
     public void handlerResponse(List<UserWithContent> userList){
         TextView nameText=binding.navView.getHeaderView(0).findViewById(R.id.navName);
         TextView eMailText= binding.navView.getHeaderView(0).findViewById(R.id.navEmail);
-
-
+        ImageView profileImageViewMain= binding.navView.getHeaderView(0).findViewById(R.id.navImageView);
         try {
             nameText.setText(userList.get(0).user.name);
             eMailText.setText(userList.get(0).user.userEmail);
+            //daha oncesinde resim yuklenmis ise burda gosteriyoruz
+            if( userList.get(0).user.image !=null){
+                Bitmap imageToBitmap = BitmapFactory.decodeByteArray( userList.get(0).user.image,0, userList.get(0).user.image.length);
+                profileImageViewMain.setImageBitmap(imageToBitmap);
+            }
+
 
         }catch (Exception e){
             e.printStackTrace();
@@ -298,10 +315,5 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.search_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+
 }

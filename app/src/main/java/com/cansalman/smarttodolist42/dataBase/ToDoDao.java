@@ -47,6 +47,11 @@ public interface ToDoDao {
 
 
 
+    @Transaction
+    @Query("SELECT * FROM User WHERE userId =:userId")
+   Flowable< List<UserWithContent>> getDetails(int userId);
+
+
 
 
     //Login fragment'ta gecerli kullanicinin userId'sini almak icin kullanilan query

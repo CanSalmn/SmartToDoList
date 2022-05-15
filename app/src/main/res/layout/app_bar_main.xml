@@ -82,10 +82,10 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
         android:text="Add"
+        android:textColor="@color/black"
         android:textSize="22dp"
         android:textStyle="bold|italic"
         android:visibility="invisible"
-        android:textColor="@color/white"
         app:layout_anchor="@+id/addFloatingButton"
         app:layout_anchorGravity="start|center" />
 

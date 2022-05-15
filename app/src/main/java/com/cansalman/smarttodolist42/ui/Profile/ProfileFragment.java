@@ -47,6 +47,7 @@ import org.eazegraph.lib.models.PieModel;
 import java.io.ByteArrayOutputStream;
 import java.security.cert.Extension;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -67,6 +68,8 @@ public class ProfileFragment extends Fragment {
     int unCheckedTodo=0;
     int userId;
     Bitmap convertedImage;
+
+    byte[] imageByte;
 
     ActivityResultLauncher<Intent>activityResultLauncher;
     ActivityResultLauncher<String > permissionLauncher;
@@ -90,7 +93,6 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         sharedPreferences = getActivity().getSharedPreferences("userId", Context.MODE_PRIVATE);
          userId= sharedPreferences.getInt("userId",0);
-        System.out.println("userId "+ userId);
 
 
 
@@ -110,7 +112,7 @@ public class ProfileFragment extends Fragment {
         for(Content content : userWithContentList.get(0).contentList){
             if(content.isChecked==1){
                 checkedTodo++;
-                System.out.println("checked");
+
             }else{
                 unCheckedTodo++;
             }
@@ -121,9 +123,9 @@ public class ProfileFragment extends Fragment {
 
 
         binding.detailsInclude.pieChart.addPieSlice(
-                new PieModel("Active",checkedTodo, Color.parseColor("#FF416C")));
+                new PieModel("Active",unCheckedTodo, Color.parseColor("#FF416C")));
         binding.detailsInclude.pieChart.addPieSlice(
-                new PieModel("Finished",unCheckedTodo,Color.parseColor("#FFA72F")));
+                new PieModel("Finished",checkedTodo,Color.parseColor("#FFA72F")));
 
         binding.detailsInclude.pieChart.startAnimation();
 
@@ -134,28 +136,13 @@ public class ProfileFragment extends Fragment {
 
 //*****************************************//
 
-
         //daha oncesinde resim yuklenmis ise burda gosteriyoruz
-        if(userWithContentList.get(0).user.image !=null){
+        if(  userWithContentList.get(0).user.image !=null){
+                Bitmap imageToBitmap = BitmapFactory.decodeByteArray( userWithContentList.get(0).user.image,0, userWithContentList.get(0).user.image.length);
 
-            try {
-                byte[] bytesImage= Base64.getDecoder().decode(userWithContentList.get(0).user.image);
-                Bitmap imageToBitmap = BitmapFactory.decodeByteArray(bytesImage,0,bytesImage.length);
                 binding.profilImageView.setImageBitmap(imageToBitmap);
-            }catch (Exception e ){
-                e.printStackTrace();
-                System.out.println("mistake");
-            }
-
 
         }
-
-
-
-
-
-
-
 
         binding.profilImageView.setOnClickListener(new View.OnClickListener() {
             @Override
